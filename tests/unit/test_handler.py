@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from hello_world import app
+from backlog_property import app
 
 
 @pytest.fixture()
