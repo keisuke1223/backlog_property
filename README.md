@@ -9,5 +9,5 @@ brew install aws-sam-cli
 pip install requests
 ```
 
-##補足
+### 補足
 AWS Toolkit for Pycharmで実行するとデバッグができます。
