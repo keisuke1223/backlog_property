@@ -14,7 +14,18 @@ logger = getLogger(__name__)
 logger.setLevel(DEBUG)
 
 # 定数
+BACKLOG_ISSUE_PATH = ''
+# 資産化プロジェクト(ロボ開発)のプロジェクトid
+BACKLOG_ISSUE_TYPE_ID = [
 
+]
+BACKLOG_API_KEY = ''
+BACKLOG_PROJECT_ID = ''
+BACKLOG_TASK_API_URL = ''
+SLACK_API_TOKEN = ''
+SLACK_URL = ''
+SLACK_CHANNEL_ID = ''
+SLACK_CHANNEL_NAME_WEBHOOK = ''
 SLACK_USER_NAME = 'Backlog'
 SLACK_ICON_EMOJI_BUG = ':heavy_dollar_sign:'
 MAX_RESPONSE_COUNT = 100
