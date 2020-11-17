@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from backlog_property import app
+from backlog_to_slack_for_pycharm import app
 
 
 @pytest.fixture()
