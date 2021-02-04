@@ -36,31 +36,30 @@ MONDAY = 0
 def lambda_handler(event, context):
     """ メイン関数
     """
-    text = check_capitalization_input()
-    send_to_slack(text)
-
-
-# 前日に起票もしくは更新されたチケットを取得して資産化チェックが必要なものを返却する
-def check_capitalization_input():
     try:
-        # 対象チケット取得
-        created_tickets = get_tickets_created_previous_business_day(BACKLOG_API_KEY, BACKLOG_TASK_API_URL,
-                                                                    BACKLOG_ISSUE_TYPE_ID,
-                                                                    BACKLOG_PROJECT_ID)
-        updated_tickets = get_tickets_updated_previous_business_day(BACKLOG_API_KEY, BACKLOG_TASK_API_URL,
-                                                                    BACKLOG_ISSUE_TYPE_ID,
-                                                                    BACKLOG_PROJECT_ID)
-
-        # 資産化入力有無チェック
-        result_tickets = check_capitalization(created_tickets, updated_tickets)
-
-        # テキスト整形
+        result_tickets = check_capitalization_input()
         text = make_text(result_tickets)
 
     except:
         logger.error(traceback.format_exc())
         text = make_exception_text(traceback.format_exc())
-    return text
+
+    send_to_slack(text)
+
+
+# 前日に起票もしくは更新されたチケットを取得して資産化チェックが必要なものを返却する
+def check_capitalization_input():
+    # 対象チケット取得
+    created_tickets = get_tickets_created_previous_business_day(BACKLOG_API_KEY, BACKLOG_TASK_API_URL,
+                                                                BACKLOG_ISSUE_TYPE_ID,
+                                                                BACKLOG_PROJECT_ID)
+    updated_tickets = get_tickets_updated_previous_business_day(BACKLOG_API_KEY, BACKLOG_TASK_API_URL,
+                                                                BACKLOG_ISSUE_TYPE_ID,
+                                                                BACKLOG_PROJECT_ID)
+    # 資産化入力有無チェック
+    result_tickets = check_capitalization(created_tickets, updated_tickets)
+
+    return result_tickets
 
 
 # 対象チケットをslackに送信する
@@ -79,10 +78,8 @@ def get_tickets_created_previous_business_day(apiKey, url, issueTypeId, projectI
     weekday = today.weekday()
 
     # 月曜日なら金曜日から取得
-    if weekday == MONDAY:
-        previous_business_day = today - datetime.timedelta(days=3)
-    else:
-        previous_business_day = today - datetime.timedelta(days=1)
+    date_diff = 3 if weekday == MONDAY else 1
+    previous_business_day = today - datetime.timedelta(days=date_diff)
 
     headers = {'content-type': 'application/json'}
     params = {
@@ -109,12 +106,9 @@ def get_tickets_updated_previous_business_day(apiKey, url, issueTypeId, projectI
     weekday = today.weekday()
 
     # 月曜日なら金曜日から取得
-    if weekday == MONDAY:
-        previous_business_day = today - datetime.timedelta(days=3)
-        before_previous_business_day = today - datetime.timedelta(days=4)
-    else:
-        previous_business_day = today - datetime.timedelta(days=1)
-        before_previous_business_day = today - datetime.timedelta(days=2)
+    date_diff = 3 if weekday == MONDAY else 1
+    previous_business_day = today - datetime.timedelta(days=date_diff)
+    before_previous_business_day = previous_business_day - datetime.timedelta(days=1)
 
     headers = {'content-type': 'application/json'}
     params = {
