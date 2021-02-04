@@ -11,29 +11,22 @@ Globals:
     Timeout: 300
 
 Resources:
-  HelloWorldFunction:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+  SendtoSlackFunction:
+    Type: AWS::Serverless::Function
     Properties:
       CodeUri: backlog_to_slack_for_pycharm/
       Handler: app.lambda_handler
       Runtime: python3.8
       Events:
-        HelloWorld:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+        Schedule1:
+          Type: Schedule
           Properties:
-            Path: /hello
-            Method: get
+            Schedule: cron(0 0 ? * MON-FRI *)
 
 Outputs:
-  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
-  # Find out more about other implicit resources you can reference within SAM
-  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  HelloWorldApi:
-    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
-  HelloWorldFunction:
-    Description: "Hello World Lambda Function ARN"
-    Value: !GetAtt HelloWorldFunction.Arn
-  HelloWorldFunctionIamRole:
-    Description: "Implicit IAM Role created for Hello World function"
-    Value: !GetAtt HelloWorldFunctionRole.Arn
+  SendtoSlackFunction:
+    Description: "SendtoSlack Lambda Function ARN"
+    Value: !GetAtt SendtoSlackFunction.Arn
+  SendtoSlackFunctionIamRole:
+    Description: "Implicit IAM Role created for SendtoSlack function"
+    Value: !GetAtt SendtoSlackFunctionRole.Arn
