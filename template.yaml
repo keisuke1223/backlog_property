@@ -22,6 +22,25 @@ Resources:
           Type: Schedule
           Properties:
             Schedule: cron(0 0 ? * MON-FRI *)
+      Environment:
+        Variables:
+          backlog_issue_path: ''
+          backlog_issue_major_type_id: ''
+          backlog_issue_minor_type_id: ''
+          backlog_issue_bug_type_id: ''
+          backlog_issue_refactor_type_id: ''
+          backlog_issue_improvement_type_id: ''
+          backlog_issue_operation_type_id: ''
+          backlog_issue_other_type_id: ''
+          backlog_issue_release_type_id: ''
+          backlog_issue_incident_type_id: ''
+          backlog_api_key: ''
+          backlog_project_id: ''
+          backlog_task_api_url: ''
+          slack_api_token: ''
+          slack_url: ''
+          slack_channel_id: ''
+          slack_channel_name_webhook: ''
 
 Outputs:
   SendtoSlackFunction:

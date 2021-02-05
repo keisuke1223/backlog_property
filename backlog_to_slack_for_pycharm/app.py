@@ -14,18 +14,26 @@ logger = getLogger(__name__)
 logger.setLevel(DEBUG)
 
 # 定数
-BACKLOG_ISSUE_PATH = ''
+BACKLOG_ISSUE_PATH = os.environ['backlog_issue_path']
 # 資産化プロジェクト(ロボ開発)のプロジェクトid
 BACKLOG_ISSUE_TYPE_ID = [
-
+    os.environ['backlog_issue_major_type_id'],
+    os.environ['backlog_issue_minor_type_id'],
+    os.environ['backlog_issue_bug_type_id'],
+    os.environ['backlog_issue_refactor_type_id'],
+    os.environ['backlog_issue_improvement_type_id'],
+    os.environ['backlog_issue_operation_type_id'],
+    os.environ['backlog_issue_other_type_id'],
+    os.environ['backlog_issue_release_type_id'],
+    os.environ['backlog_issue_incident_type_id']
 ]
-BACKLOG_API_KEY = ''
-BACKLOG_PROJECT_ID = ''
-BACKLOG_TASK_API_URL = ''
-SLACK_API_TOKEN = ''
-SLACK_URL = ''
-SLACK_CHANNEL_ID = ''
-SLACK_CHANNEL_NAME_WEBHOOK = ''
+BACKLOG_API_KEY = os.environ['backlog_api_key']
+BACKLOG_PROJECT_ID = os.environ['backlog_project_id']
+BACKLOG_TASK_API_URL = os.environ['backlog_task_api_url']
+SLACK_API_TOKEN = os.environ['slack_api_token']
+SLACK_URL = os.environ['slack_url']
+SLACK_CHANNEL_ID = os.environ['slack_channel_id']
+SLACK_CHANNEL_NAME_WEBHOOK = os.environ['slack_channel_name_webhook']
 SLACK_USER_NAME = 'Backlog'
 SLACK_ICON_EMOJI_BUG = ':heavy_dollar_sign:'
 MAX_RESPONSE_COUNT = 100
